@@ -1,0 +1,43 @@
+html {
+    box-sizing: border-box;
+}
+
+*, *:before, *:after {
+    box-sizing: inherit;
+}
+
+body {
+    background-color: beige;
+}
+
+h1 {
+    font-size: 38pt;
+    text-align: center;
+    margin-top: 2em;
+    text-transform: uppercase;
+    margin-bottom: 40pt;
+}
+
+.center {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 75px;
+}
+
+.centertext {
+    margin-left: auto;
+    margin-right: auto;
+    width: 50em;
+    margin-top: 3em;
+}
+
+.form {
+    display: block;
+    align-self: baseline;
+    
+}
+
+table {
+    width: 80%;
+}

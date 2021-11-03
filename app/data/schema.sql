@@ -1,41 +1,60 @@
-CREATE DATABASE IF NOT EXISTS msisdb;
-USE msisdb;
-
-DROP TABLE IF EXISTS student;
-CREATE TABLE student (
-	id int PRIMARY KEY AUTO_INCREMENT ,
-    username varchar(24) UNIQUE NOT NULL,
-    name varchar(48)
+DROP TABLE IF EXISTS tblGame;
+create table game(
+id INT PRIMARY KEY AUTO_INCREMENT,
+referee_id INT,
+field INT,
+start_time DATETIME(2)
 );
+insert into game (id, referee_id, field, start_time) values (1, 1, 15, '2021-10-03 13:00');
+insert into game (id, referee_id, field, start_time) values (2, 1, 5, '2021-10-03 16:00');
+insert into game (id, referee_id, field, start_time) values (3, 2, 25, '2021-10-03 13:00');
+insert into game (id, referee_id, field, start_time) values (4, 5, 19, '2021-10-03 15:00');
+insert into game (id, referee_id, field, start_time) values (5, 8, 17, '2021-10-03 11:00' );
+insert into game (id, referee_id, field, start_time) values (6, 9, 12, '2021-10-03 13:00');
+insert into game (id, referee_id, field, start_time) values (7, 11, 1, '2021-10-03 13:00');
+insert into game (id, referee_id, field, start_time) values (8, 10, 6, '2021-10-03 12:00');
+insert into game (id, referee_id, field, start_time) values (9, 9, 26, '2021-10-03 13:00');
+insert into game (id, referee_id, field, start_time) values (10, 9, 13, '2021-10-03 13:00');
+insert into game (id, referee_id, field, start_time) values (11, 9, 23, '2021-10-03 13:00');
+insert into game (id, referee_id, field, start_time) values (12, 10, 23, '2021-10-03 16:00');
+insert into game (id, referee_id, field, start_time) values (13, 10, 16, '2021-10-03 12:00');
+insert into game (id, referee_id, field, start_time) values (14, 8, 19, '2021-10-03 13:00');
+insert into game (id, referee_id, field, start_time) values (15, 11, 9, '2021-10-03 19:00');
+insert into game (id, referee_id, field, start_time) values (16, 4, 2, '2021-10-03 18:00');
+insert into game (id, referee_id, field, start_time) values (17, 10, 14, '2021-10-03 13:00');
+insert into game (id, referee_id, field, start_time) values (18, 5, 24, '2021-10-03 18:00');
+insert into game (id, referee_id, field, start_time) values (19, 6, 5, '2021-10-03 16:00');
+insert into game (id, referee_id, field, start_time) values (20, 8, 21, '2021-10-03 14:00');
 
-INSERT INTO student (id, username, name) VALUES 
-(1, 'tomgreg', 'Tom Gregory'),
-(2, 'beth1', 'Beth Barnhart'),
-(3, 'bipin', 'Prof. Prabhakar');
-
--- SELECT * FROM students;
-
-DROP TABLE IF EXISTS offer;
-CREATE TABLE offer (
-	id int PRIMARY KEY AUTO_INCREMENT,
-    studentId int NOT NULL REFERENCES student(id) 
-        ON DELETE CASCADE ON UPDATE CASCADE,
-	companyName VARCHAR(24) NOT NULL DEFAULT '',
-    salary int NOT NULL DEFAULT 0,
-    bonus int NOT NULL DEFAULT 0,
-	offerDate date NOT NULL DEFAULT(CURRENT_DATE)
+DROP TABLE IF EXISTS tblReferee;
+create table referee (
+id INT PRIMARY KEY AUTO_INCREMENT ,
+first_name VARCHAR(50),
+last_name VARCHAR(50),
+age INT,
+grade_level INT,
+skill INT
 );
-
--- Student 1 has no offers, Student 2 has 3 offers, Student 3 has one offer
-INSERT INTO offer(id, studentId, companyName, salary, bonus, offerDate) VALUES
-  (1, 2, 'KPMG', 95000, 7000, '2021-09-30'),
-  (2, 2, 'Deloitte Digital', 94000, 12000, '2021-10-03'),
-  (3, 2, 'IU, ISGP', 54000, 0, '2021-10-05'),
-  (4, 3, 'Amazon', 122000, 11000, '2021-10-15')
-;
-
--- COMMIT;
-
--- CREATE USER 'msisreader'@'%' IDENTIFIED BY 'msisreadonly';
--- GRANT SELECT ON * . * TO 'msisreader'@'%';
+insert into referee (id, first_name, last_name, age, grade_level, skill) values (1,
+'Wendall', 'Grundy', 9, 6, 99);
+insert into referee (id, first_name, last_name, age, grade_level, skill) values (2,
+'Trisha', 'Stirrup', 14, 3, 58);
+insert into referee (id, first_name, last_name, age, grade_level, skill) values (3,
+'Marcia', 'Riggs', 49, 1, 70);
+insert into referee (id, first_name, last_name, age, grade_level, skill) values (4,
+'Federica', 'Biasio', 58, 1, 85);
+insert into referee (id, first_name, last_name, age, grade_level, skill) values (5,
+'Nathanial', 'Cunde', 56, 3, 43);
+insert into referee (id, first_name, last_name, age, grade_level, skill) values (6,
+'Charlie', 'Basford', 32, 3, 52);
+insert into referee (id, first_name, last_name, age, grade_level, skill) values (7,
+'Sara-ann', 'Allwood', 37, 8, 2);
+insert into referee (id, first_name, last_name, age, grade_level, skill) values (8,
+'Rosene', 'Nancarrow', 34, 2, 3);
+insert into referee (id, first_name, last_name, age, grade_level, skill) values (9,
+'Julio', 'Duplock', 35, 1, 3);
+insert into referee (id, first_name, last_name, age, grade_level, skill) values
+(10, 'Heidie', 'Priestland', 41, 5, 79);
+insert into referee (id, first_name, last_name, age, grade_level, skill) values
+(11, 'Rudiger', 'Sword', 40, 3, 67);
 
