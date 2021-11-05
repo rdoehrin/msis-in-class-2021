@@ -6,14 +6,15 @@ const SomeApp = {
       selectedReferee: null,
       games: [],
       gameForm: {},
-      selectedGame: null
+      selectedGame: null,
+      refereeForm: {}
     }
   },
   computed: {},
   methods: {
       prettyData(d) {
           return dayjs(d)
-          .format('D MMM YYYY')
+          .format('D MMM YYYY h:mm A')
       },
       prettyDollar(n) {
           const d = new Intl.NumberFormat("en-US").format(n);
@@ -48,9 +49,6 @@ const SomeApp = {
           })
           .catch( (err) => {
               console.error(err);
-          })
-          .catch( (error) => {
-              console.error(error);
           });
       },
       postGame(evt) {
@@ -61,8 +59,8 @@ const SomeApp = {
         }
       },
       postNewGame(evt) {
-        this.gameForm.referee_id = this.selectedReferee.id;
-
+        //this.gameForm.referee_id = this.selectedReferee.id;
+        this.gameForm.rid = this.selectedReferee.id;
         console.log("Creating!", this.gameForm);
 
         fetch('api/game/create.php', {
@@ -85,9 +83,34 @@ const SomeApp = {
             alert("Something went horribly wrong!");
           });
       },
+      postNewReferee(evt) {
+        //this.gameForm.referee_id = this.selectedReferee.id;
+        this.refereeForm.gid = this.selectedGame.id;
+        console.log("Creating!", this.refereeForm);
+
+        fetch('api/game/create.php', {
+            method:'POST',
+            body: JSON.stringify(this.refereeForm),
+            headers: {
+              "Content-Type": "application/json; charset=utf-8"
+            }
+          })
+          .then( response => response.json() )
+          .then( json => {
+            console.log("Returned from post:", json);
+            // TODO: test a result was returned!
+            this.referees = json;
+
+            // reset the form
+            this.resetGameForm();
+          })
+          .catch( err => {
+            alert("Something went horribly wrong!");
+          });
+      },
       postEditGame(evt) {
-        this.gameForm.referee_id = this.selectedReferee.id;
-        this.gameForm.id = this.selectedGame.id;
+        this.gameForm.id = this.selectedReferee.id;
+        //this.gameForm.id = this.selectedGame.id;
 
         console.log("Updating!", this.gameForm);
 
@@ -109,7 +132,7 @@ const SomeApp = {
           });
       },
       postDeleteGame(g) {
-        if (!confirm("Are you sure you want to delete the game from "+g.first_name+"?")) {
+        if (!confirm("Are you sure you want to delete this game?" )) {
           return;
         }
         console.log("Delete!", g);

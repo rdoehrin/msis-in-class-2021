@@ -1,0 +1,107 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KyZXEAg3QhqLMpG8r+8fhAXLRk2vvoC2f3B09zVXn8CA5QIVfZOJ3BCsw2P0p/We" crossorigin="anonymous">
+    <link href="css/styles.css" rel="stylesheet" type="text/css">
+    
+    <script src="https://unpkg.com/vue@next"></script>
+    <script src="https://unpkg.com/dayjs@1.8.21/dayjs.min.js"></script>
+    <title>Assign Referees</title>
+  </head>
+  <body>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+      <div class="container-fluid">
+        <a class="navbar-brand" href="#">Navbar</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+          <ul class="navbar-nav">
+            <li class="nav-item">
+              <a class="nav-link active" aria-current="page" href="index.html">Home</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="RefAssignments.html">Assign Referees</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#">Referee View</a>
+            </li>
+          </ul>
+        </div>
+      </nav>
+
+    <div id="refereeApp" class="container">
+        <div class="row align-items-start">
+          <div class="col col-4">
+            <h2>Referees</h2>
+            <div v-for="r in referees" v-on:click="selectReferee(r)"
+             :class="['referee', {selected: selectedReferee && r.id == selectedReferee.id}]">
+              <span class="Name">{{ r.first_name }} {{r.last_name}} <br></span><br>
+          
+            </div>
+          </div>
+
+          <div class="col col-8" v-if="selectedReferee">
+            <h1>Games assigned to {{ selectedReferee.first_name }} {{selectedReferee.last_name}}</h1>
+
+            <table class="table">
+              <thead>
+                <tr>
+                  <th>Field</th>
+                  <th>Start Time</th>
+                </tr>
+              </thead>
+                <tbody>
+                    <tr v-for="game in games">
+                        <td>{{ game.field }}</td>
+                        <td>{{ prettyData(game.start_time) }}</td>
+                        <td></td>
+                        <td>
+                          <button type="button" 
+                            class="btn btn-outline-secondary btn-sm"
+                            v-on:click="selectGameToEdit(game)">Edit</button>
+                          <button type="button" class="btn btn-outline-secondary btn-sm"
+                            v-on:click="postDeleteGame(game)">Delete</button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h3>{{ selectedGame === null ? "Add " : "Edit " }} Game</h3>
+            <form v-on:submit.prevent="postGame">
+              <div class="mb-3">
+                <label for="field" class="form-label">Field <span class="reqd">*</span></label>
+                <input type="text" v-model="gameForm.field"
+                 class="form-control" id="field" required="required">
+              </div>
+              <div class="mb-3">
+                <label for="start_time" class="form-label">Start Time <span class="reqd">*</span></label>
+                <input type="datetime" v-model="gameForm.start_time" class="form-control" id="start_time" required="required">
+              </div>
+             
+              <button type="submit" class="btn btn-primary">{{ selectedGame === null ? "Add " : "Edit " }} Game</button>
+              <button type="button" class="btn btn-outline-secondary" v-if="selectedGame" v-on:click="resetGameForm">Cancel</button>
+            </form>
+            <div class="noGames" v-if="! games.length">
+              <h3>No game assignments. </h3>
+            </div>
+
+          </div>
+
+        </div>
+
+      </div>
+
+    <!-- Bootstrap Bundle with Popper -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-U1DAWAznBHeqEIlVSCgzq+c9gqGAJn5c/t99JyeKa9xxaYpSvHU5awsuZVVFIhvj" crossorigin="anonymous"></script>
+    <script src="https://unpkg.com/dayjs@1.8.21/dayjs.min.js"></script>
+
+    <script src="js/index.js"></script>
+  </body>
+</html>
+  

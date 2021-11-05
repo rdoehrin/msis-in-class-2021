@@ -5,24 +5,27 @@ require 'class/DbConnection.php';
 $db = DbConnection::getConnection();
 
 // Step 2: Create & run the query
-$sql = 'SELECT * FROM game';
-$vars = [];
+  $sql = 'SELECT * FROM game';
+  $vars = [];
 
-if (isset($_GET['first_name'])) {
+if (isset($_GET['referee'])) {
   // This is an example of a parameterized query
-  $sql = 'SELECT * FROM game WHERE referee_id = ?';
+  // $sql = 'SELECT * FROM game 
+  // WHERE id = ?';
+  
+  $sql = 'SELECT game.field, game.start_time from game, child, referee
+  where child.gid = game.id AND child.rid = referee.id AND referee.id=?';
 
-
-  $vars = [ $_GET['first_name'] ];
+  $vars = [ $_GET['referee'] ];
 }
 
 $stmt = $db->prepare($sql);
 $stmt->execute($vars);
 
-$offers = $stmt->fetchAll();
+$game = $stmt->fetchAll();
 
 // Step 3: Convert to JSON
-$json = json_encode($offers, JSON_PRETTY_PRINT);
+$json = json_encode($game, JSON_PRETTY_PRINT);
 
 // Step 4: Output
 header('Content-Type: application/json');
