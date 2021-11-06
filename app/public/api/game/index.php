@@ -9,11 +9,8 @@ $db = DbConnection::getConnection();
   $vars = [];
 
 if (isset($_GET['referee'])) {
-  // This is an example of a parameterized query
-  // $sql = 'SELECT * FROM game 
-  // WHERE id = ?';
   
-  $sql = 'SELECT game.field, game.start_time from game, child, referee
+  $sql = 'SELECT game.id, game.field, game.start_time from game, child, referee
   where child.gid = game.id AND child.rid = referee.id AND referee.id=?';
 
   $vars = [ $_GET['referee'] ];

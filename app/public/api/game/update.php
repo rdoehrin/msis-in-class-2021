@@ -40,7 +40,7 @@ $stmt = $db->prepare(
 $stmt->execute([
   $_POST['field'],
   $_POST['start_time'],
- $_POST['id']
+  $_POST['id']
 ]);
 
 // Get auto-generated PK from DB

@@ -47,8 +47,28 @@
           </div>
 
           <div class="col col-8" v-if="selectedReferee">
-            <h1>Games assigned to {{ selectedReferee.first_name }} {{selectedReferee.last_name}}</h1>
+          
+            <h2>Referee details for {{ selectedReferee.first_name }} {{selectedReferee.last_name}} </h2>
+            <table class="table">
+              <thead>
+                <tr>
+                  <th>Age</th>
+                  <th>Grade Level</th>
+                  <th>Skill Rating</th>
+                </tr>
+              </thead>
+                <tbody>
+                    <tr>
+                        <td>{{ selectedReferee.age }}</td>
+                        <td>{{ selectedReferee.grade_level }}</td>
+                        <td>{{ selectedReferee.skill }}</td>
+                        <td></td>
+          
+                    </tr>
+                </tbody>
+            </table> <br>
 
+            <h2>Games assigned to {{ selectedReferee.first_name }} {{selectedReferee.last_name}} </h2>
             <table class="table">
               <thead>
                 <tr>

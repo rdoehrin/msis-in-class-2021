@@ -28,6 +28,7 @@ const SomeApp = {
           this.games = [];
           this.fetchGameData(this.selectedReferee);
       },
+      
       fetchRefereeData() {
           fetch('/api/referee/')
           .then( response => response.json() )
@@ -38,6 +39,7 @@ const SomeApp = {
           .catch( (err) => {
               console.error(err);
           })
+          
       },
       fetchGameData(r) {
           console.log("Fetching game data for ", r);
@@ -50,7 +52,8 @@ const SomeApp = {
           .catch( (err) => {
               console.error(err);
           });
-      },
+    },
+   
       postGame(evt) {
         if (this.selectedGame === null) {
             this.postNewGame(evt);
@@ -59,8 +62,8 @@ const SomeApp = {
         }
       },
       postNewGame(evt) {
-        //this.gameForm.referee_id = this.selectedReferee.id;
         this.gameForm.rid = this.selectedReferee.id;
+        //this.gameForm.gid = this.;
         console.log("Creating!", this.gameForm);
 
         fetch('api/game/create.php', {
@@ -75,6 +78,7 @@ const SomeApp = {
             console.log("Returned from post:", json);
             // TODO: test a result was returned!
             this.games = json;
+            
 
             // reset the form
             this.resetGameForm();
